@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>BUUCTF-Crypto-Wp 31~40 | Jiu jue's blog</title><meta name="keywords" content="Crypto"><meta name="author" content="Jiu jue"><meta name="copyright" content="Jiu jue"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="BUUCTF刷题笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUUCTF-Crypto-Wp 31~40">
+<meta property="og:url" content="http://example.com/2022/08/16/buuctf-4/index.html">
+<meta property="og:site_name" content="Jiu jue&#39;s blog">
+<meta property="og:description" content="BUUCTF刷题笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/93ffdda9-7931-4753-aee3-0c05df7bc9b5.bmp">
+<meta property="article:published_time" content="2022-08-15T21:10:25.000Z">
+<meta property="article:modified_time" content="2022-08-15T21:13:29.839Z">
+<meta property="article:author" content="Jiu jue">
+<meta property="article:tag" content="MORSE">
+<meta property="article:tag" content="RSA">
+<meta property="article:tag" content="base">
+<meta property="article:tag" content="playfair">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/93ffdda9-7931-4753-aee3-0c05df7bc9b5.bmp"><link rel="shortcut icon" href="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/IMG_9377_cugan_noise3_4x_i1.00.PNG"><link rel="canonical" href="http://example.com/2022/08/16/buuctf-4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":1,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Jiu jue","link":"链接: ","source":"来源: Jiu jue's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'BUUCTF-Crypto-Wp 31~40',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-16 05:13:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/love.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/93ffdda9-7931-4753-aee3-0c05df7bc9b5.bmp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Jiu jue's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">BUUCTF-Crypto-Wp 31~40</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-15T21:10:25.000Z" title="发表于 2022-08-16 05:10:25">2022-08-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-15T21:13:29.839Z" title="更新于 2022-08-16 05:13:29">2022-08-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="BUUCTF-Crypto-Wp 31~40"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="31-RSA"><a href="#31-RSA" class="headerlink" title="31 RSA"></a>31 RSA</h1><p>下载能得到两个文件，分别是pub.key和flag.enc，尝试了一下打开，发现只有pub.key文件能打开，而flag.enc为二进制文件，pub中内容应是e和n，通过python脚本分解：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;pub.key&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    text=file.read()</span><br><span class="line">key=RSA.import_key(text)</span><br><span class="line">e=key.e</span><br><span class="line">n=key.n</span><br><span class="line"><span class="built_in">print</span>(e)</span><br><span class="line"><span class="built_in">print</span>(n)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">65537</span><br><span class="line">86934482296048119190666062003494800588905656017203025617216654058378322103517</span><br></pre></td></tr></table></figure>
+<p>得到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p=285960468890451637935629440372639283459</span><br><span class="line">q=304008741604601924494328155975272418463</span><br></pre></td></tr></table></figure>
+<p>开始解密，完整脚本：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> RSA</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;pub.key&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    text=file.read()</span><br><span class="line">key=RSA.import_key(text)</span><br><span class="line">e=key.e</span><br><span class="line">n=key.n</span><br><span class="line">p=<span class="number">285960468890451637935629440372639283459</span></span><br><span class="line">q=<span class="number">304008741604601924494328155975272418463</span></span><br><span class="line">phi=(p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d=gmpy2.invert(e,phi)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;flag.enc&#x27;</span>,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    c=file.read()</span><br><span class="line">flag=<span class="built_in">pow</span>(<span class="built_in">int</span>.from_bytes(c,byteorder=<span class="string">&#x27;big&#x27;</span>),d,n)<span class="comment">#将最优有意义的字节放在字节数组的开头</span></span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(flag))</span><br></pre></td></tr></table></figure>
+<p>Output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;\x02\x9d &#123;zR\x1e\x08\xe4\xe6\x18\x06\x00flag&#123;decrypt_256&#125;\n&#x27;</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<h1 id="32-RSAROLL"><a href="#32-RSAROLL" class="headerlink" title="32 RSAROLL"></a>32 RSAROLL</h1><p>两个文件：</p>
+<p>题目：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RSA roll！roll！roll！</span><br><span class="line">Only number and a-z</span><br><span class="line">（don&#x27;t use editor</span><br><span class="line">which MS provide）</span><br></pre></td></tr></table></figure>
+<p>Data:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;920139713,19&#125;</span><br><span class="line"></span><br><span class="line">704796792</span><br><span class="line">752211152</span><br><span class="line">274704164</span><br><span class="line">18414022</span><br><span class="line">368270835</span><br><span class="line">483295235</span><br><span class="line">263072905</span><br><span class="line">459788476</span><br><span class="line">483295235</span><br><span class="line">459788476</span><br><span class="line">663551792</span><br><span class="line">475206804</span><br><span class="line">459788476</span><br><span class="line">428313374</span><br><span class="line">475206804</span><br><span class="line">459788476</span><br><span class="line">425392137</span><br><span class="line">704796792</span><br><span class="line">458265677</span><br><span class="line">341524652</span><br><span class="line">483295235</span><br><span class="line">534149509</span><br><span class="line">425392137</span><br><span class="line">428313374</span><br><span class="line">425392137</span><br><span class="line">341524652</span><br><span class="line">458265677</span><br><span class="line">263072905</span><br><span class="line">483295235</span><br><span class="line">828509797</span><br><span class="line">341524652</span><br><span class="line">425392137</span><br><span class="line">475206804</span><br><span class="line">428313374</span><br><span class="line">483295235</span><br><span class="line">475206804</span><br><span class="line">459788476</span><br><span class="line">306220148</span><br></pre></td></tr></table></figure>
+<p>题目给的提示是roll，根据给的data，<strong>920139713,19</strong>应该是n和e，那下面就是c了，直接用拼接法解flag试试，脚本：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line">n=<span class="number">920139713</span></span><br><span class="line">e=<span class="number">19</span></span><br><span class="line">p=<span class="number">18443</span></span><br><span class="line">q=<span class="number">49891</span><span class="comment">#http://www.factordb.com/</span></span><br><span class="line">phi=(p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d=gmpy2.invert(e,phi)</span><br><span class="line"></span><br><span class="line"><span class="built_in">list</span>=[</span><br><span class="line"><span class="number">704796792</span>,</span><br><span class="line"><span class="number">752211152</span>,</span><br><span class="line"><span class="number">274704164</span>,</span><br><span class="line"><span class="number">18414022</span>,</span><br><span class="line"><span class="number">368270835</span>,</span><br><span class="line"><span class="number">483295235</span>,</span><br><span class="line"><span class="number">263072905</span>,</span><br><span class="line"><span class="number">459788476</span>,</span><br><span class="line"><span class="number">483295235</span>,</span><br><span class="line"><span class="number">459788476</span>,</span><br><span class="line"><span class="number">663551792</span>,</span><br><span class="line"><span class="number">475206804</span>,</span><br><span class="line"><span class="number">459788476</span>,</span><br><span class="line"><span class="number">428313374</span>,</span><br><span class="line"><span class="number">475206804</span>,</span><br><span class="line"><span class="number">459788476</span>,</span><br><span class="line"><span class="number">425392137</span>,</span><br><span class="line"><span class="number">704796792</span>,</span><br><span class="line"><span class="number">458265677</span>,</span><br><span class="line"><span class="number">341524652</span>,</span><br><span class="line"><span class="number">483295235</span>,</span><br><span class="line"><span class="number">534149509</span>,</span><br><span class="line"><span class="number">425392137</span>,</span><br><span class="line"><span class="number">428313374</span>,</span><br><span class="line"><span class="number">425392137</span>,</span><br><span class="line"><span class="number">341524652</span>,</span><br><span class="line"><span class="number">458265677</span>,</span><br><span class="line"><span class="number">263072905</span>,</span><br><span class="line"><span class="number">483295235</span>,</span><br><span class="line"><span class="number">828509797</span>,</span><br><span class="line"><span class="number">341524652</span>,</span><br><span class="line"><span class="number">425392137</span>,</span><br><span class="line"><span class="number">475206804</span>,</span><br><span class="line"><span class="number">428313374</span>,</span><br><span class="line"><span class="number">483295235</span>,</span><br><span class="line"><span class="number">475206804</span>,</span><br><span class="line"><span class="number">459788476</span>,</span><br><span class="line"><span class="number">306220148</span></span><br><span class="line">]</span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">list</span>:</span><br><span class="line">    c=i</span><br><span class="line">    m=<span class="built_in">pow</span>(c,d,n)</span><br><span class="line">    flag+=long_to_bytes(m).decode()</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;13212je2ue28fy71w8u87y31r78eu1e2&#125;</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<h1 id="33-dangerous-rsa"><a href="#33-dangerous-rsa" class="headerlink" title="33  dangerous rsa"></a>33  dangerous rsa</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#n:  0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793</span><br><span class="line"></span><br><span class="line">#e:  0x3</span><br><span class="line"></span><br><span class="line">#c:0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365</span><br><span class="line"></span><br><span class="line">so,how to get the message?</span><br></pre></td></tr></table></figure>
+<p>题目给出了n，c，e，但是n过大，难以拆分p与q，但是公钥e=3，可以直接针对小加密指数e进行攻击，</p>
+<script type="math/tex; mode=display">
+m^{e}<n(m可由c直接开3次方得到)
+\\
+m^{e}>n(可令m^{e}=c+kn,则m可以由(c+kn)开3次方得到)</script><p>解题脚本：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">n=<span class="number">0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793</span></span><br><span class="line">e=<span class="number">0x3</span></span><br><span class="line">c=<span class="number">0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365</span></span><br><span class="line">k = <span class="number">0</span><span class="comment">#穷举k法</span></span><br><span class="line"><span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">    <span class="comment">#gmpy2.iroot(x,n) x开n次方根</span></span><br><span class="line">    <span class="comment">#返回值m为开方计算结果，f为bool变量，标识x能否被开方</span></span><br><span class="line">    m, f = gmpy2.iroot(c+k*n, e)</span><br><span class="line">    <span class="keyword">if</span> f:</span><br><span class="line">        m = <span class="built_in">hex</span>(m)[<span class="number">2</span>:]</span><br><span class="line">        flag = binascii.unhexlify(m)</span><br><span class="line">        <span class="built_in">print</span>(flag)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    k += <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>output：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;25df8caf006ee5db94d48144c33b2c3b&#125;</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<p>关于<strong>unhexlify和hexlify</strong>：</p>
+<p>在<strong>binascii</strong>库中，作用：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">BIN转HEX：</span><br><span class="line">    输入：</span><br><span class="line">    <span class="keyword">import</span> binascii</span><br><span class="line">    <span class="built_in">print</span>(binascii.b2a_hex(<span class="string">&quot;abcdefghijklmn&quot;</span>))</span><br><span class="line">    输出：</span><br><span class="line">        6162636465666768696a6b6c6d6e</span><br><span class="line">      </span><br><span class="line">    扩展：hexlify也可以实现同样的效果：</span><br><span class="line">    binascii.hexlify(<span class="string">&quot;abcdefghijklmn&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">HEX转BIN：</span><br><span class="line">    输入：</span><br><span class="line">    <span class="keyword">import</span> binascii</span><br><span class="line">    <span class="built_in">print</span>(binascii.a2b_hex(<span class="string">&quot;61626364&quot;</span>))</span><br><span class="line">    输出：</span><br><span class="line">        abcd</span><br><span class="line">      </span><br><span class="line">    扩展：unhexlify也可以实现同样的效果：</span><br><span class="line">    binascii.unhexlify(<span class="string">&quot;61626364&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="34-robomunication"><a href="#34-robomunication" class="headerlink" title="34 robomunication"></a>34 robomunication</h1><p>文件是一段音频，只有两种声音，猜测是morse密码，记录下来后密文是：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.... . .-.. .-.. --- .-- .... .- - .. ... - .... . -.- . -.-- .. - .. ... -... --- --- .--. -... . . .--.</span><br></pre></td></tr></table></figure>
+<p>翻译后得：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HELLOWHATISTHEKEYITISBOOPBEEP</span><br></pre></td></tr></table></figure>
+<p>故flag为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BOOPBEEP</span><br></pre></td></tr></table></figure>
+<h1 id="35-Cipher"><a href="#35-Cipher" class="headerlink" title="35 Cipher"></a>35 Cipher</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">还能提示什么呢？公平的玩吧（密钥自己找） Dncnoqqfliqrpgeklwmppu </span><br></pre></td></tr></table></figure>
+<p>公平地玩，提示是playfair密码，没给密钥，应该就是playfair了，</p>
+<p>密码表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">p</th>
+<th style="text-align:center">l</th>
+<th style="text-align:center">a</th>
+<th style="text-align:center">y</th>
+<th style="text-align:center">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">i/j</td>
+<td style="text-align:center">r</td>
+<td style="text-align:center">b</td>
+<td style="text-align:center">c</td>
+<td style="text-align:center">d</td>
+</tr>
+<tr>
+<td style="text-align:center">e</td>
+<td style="text-align:center">g</td>
+<td style="text-align:center">h</td>
+<td style="text-align:center">k</td>
+<td style="text-align:center">m</td>
+</tr>
+<tr>
+<td style="text-align:center">n</td>
+<td style="text-align:center">o</td>
+<td style="text-align:center">q</td>
+<td style="text-align:center">s</td>
+<td style="text-align:center">t</td>
+</tr>
+<tr>
+<td style="text-align:center">u</td>
+<td style="text-align:center">v</td>
+<td style="text-align:center">w</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">z</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>解密后得到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">itisnotaproblemhavefun</span><br></pre></td></tr></table></figure>
+<h2 id="playfair密码："><a href="#playfair密码：" class="headerlink" title="playfair密码："></a>playfair密码：</h2><p>1.选取一个英文字作密钥。除去重复出现的字母。将密钥的字母逐个逐个加入5×5的矩阵内，剩下的空间将未加入的英文字母依a-z的顺序加入。（将Q去除，或将I和J视作同一字。）</p>
+<p>2.将要加密的讯息分成两个一组。若组内的字母相同，将X（或Q）插入两字母之间，重新分组（例如 HELLO 将分成 HE LX LO）。若剩下一个字，也加入X字。</p>
+<ol>
+<li><p>在每组中，找出两个字母在矩阵中的地方。</p>
+<p>若两个字母不在同一直行或同一横列，在矩阵中找出另外两个字母，使这四个字母成为一个长方形的四个角。</p>
+<p>若两个字母在同一横列，取这两个字母右方的字母（若字母在最右方则取最左方的字母）。</p>
+<p>若两个字母在同一直行，取这两个字母下方的字母（若字母在最下方则取最上方的字母）。</p>
+<p>新找到的两个字母就是原本的两个字母加密的结果。</p>
+</li>
+</ol>
+<h1 id="36-HDCTF2019-basic-rsa"><a href="#36-HDCTF2019-basic-rsa" class="headerlink" title="36 [HDCTF2019]basic rsa"></a>36 [HDCTF2019]basic rsa</h1><p>题目：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> binascii <span class="keyword">import</span> a2b_hex,b2a_hex</span><br><span class="line"></span><br><span class="line">flag = <span class="string">&quot;*****************&quot;</span></span><br><span class="line"></span><br><span class="line">p = <span class="number">262248800182277040650192055439906580479</span></span><br><span class="line">q = <span class="number">262854994239322828547925595487519915551</span></span><br><span class="line"></span><br><span class="line">e = <span class="number">65533</span></span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">c = <span class="built_in">pow</span>(<span class="built_in">int</span>(b2a_hex(flag),<span class="number">16</span>),e,n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 27565231154623519221597938803435789010285480123476977081867877272451638645710</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>一道RSA的题目，猜测注释的内容应该是c，正常解法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">p = <span class="number">262248800182277040650192055439906580479</span></span><br><span class="line">q = <span class="number">262854994239322828547925595487519915551</span></span><br><span class="line">c=<span class="number">27565231154623519221597938803435789010285480123476977081867877272451638645710</span></span><br><span class="line">e = <span class="number">65533</span></span><br><span class="line">n = p*q</span><br><span class="line">phi=(p-<span class="number">1</span>)*(q-<span class="number">1</span>)</span><br><span class="line">d=gmpy2.invert(e,phi)</span><br><span class="line">m=<span class="built_in">pow</span>(c,d,n)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>得到flag：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;B4by_Rs4&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="37-GXYCTF2019-CheckIn"><a href="#37-GXYCTF2019-CheckIn" class="headerlink" title="37 [GXYCTF2019]CheckIn"></a>37 [GXYCTF2019]CheckIn</h1><p>题目内容是一串base64编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dikqTCpfRjA8fUBIMD5GNDkwMjNARkUwI0BFTg==</span><br></pre></td></tr></table></figure>
+<p>解码后：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">v)*L*_F0&lt;&#125;@H0&gt;F49023@FE0#@EN</span><br></pre></td></tr></table></figure>
+<p>rot47解码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GXY&#123;Y0u_kNow_much_about_Rot&#125;</span><br></pre></td></tr></table></figure>
+<p>得到flag</p>
+<h1 id="38-GUET-CTF2019-BabyRSA"><a href="#38-GUET-CTF2019-BabyRSA" class="headerlink" title="38 [GUET-CTF2019]BabyRSA"></a>38 [GUET-CTF2019]BabyRSA</h1><p>一道RSA的题：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">p+q : 0x1232fecb92adead91613e7d9ae5e36fe6bb765317d6ed38ad890b4073539a6231a6620584cea5730b5af83a3e80cf30141282c97be4400e33307573af6b25e2ea</span><br><span class="line">(p+1)(q+1) : 0x5248becef1d925d45705a7302700d6a0ffe5877fddf9451a9c1181c4d82365806085fd86fbaab08b6fc66a967b2566d743c626547203b34ea3fdb1bc06dd3bb765fd8b919e3bd2cb15bc175c9498f9d9a0e216c2dde64d81255fa4c05a1ee619fc1fc505285a239e7bc655ec6605d9693078b800ee80931a7a0c84f33c851740</span><br><span class="line">e : 0xe6b1bee47bd63f615c7d0a43c529d219</span><br><span class="line">d : 0x2dde7fbaed477f6d62838d55b0d0964868cf6efb2c282a5f13e6008ce7317a24cb57aec49ef0d738919f47cdcd9677cd52ac2293ec5938aa198f962678b5cd0da344453f521a69b2ac03647cdd8339f4e38cec452d54e60698833d67f9315c02ddaa4c79ebaa902c605d7bda32ce970541b2d9a17d62b52df813b2fb0c5ab1a5</span><br><span class="line">enc_flag : 0x50ae00623211ba6089ddfae21e204ab616f6c9d294e913550af3d66e85d0c0693ed53ed55c46d8cca1d7c2ad44839030df26b70f22a8567171a759b76fe5f07b3c5a6ec89117ed0a36c0950956b9cde880c575737f779143f921d745ac3bb0e379c05d9a3cc6bf0bea8aa91e4d5e752c7eb46b2e023edbc07d24a7c460a34a9a</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>给了p+q和(p+1)(q+1)能解出n：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">a=<span class="number">0x1232fecb92adead91613e7d9ae5e36fe6bb765317d6ed38ad890b4073539a6231a6620584cea5730b5af83a3e80cf30141282c97be4400e33307573af6b25e2ea</span></span><br><span class="line">b=<span class="number">0x5248becef1d925d45705a7302700d6a0ffe5877fddf9451a9c1181c4d82365806085fd86fbaab08b6fc66a967b2566d743c626547203b34ea3fdb1bc06dd3bb765fd8b919e3bd2cb15bc175c9498f9d9a0e216c2dde64d81255fa4c05a1ee619fc1fc505285a239e7bc655ec6605d9693078b800ee80931a7a0c84f33c851740</span></span><br><span class="line">n=b-a-<span class="number">1</span></span><br><span class="line">c=<span class="number">0x50ae00623211ba6089ddfae21e204ab616f6c9d294e913550af3d66e85d0c0693ed53ed55c46d8cca1d7c2ad44839030df26b70f22a8567171a759b76fe5f07b3c5a6ec89117ed0a36c0950956b9cde880c575737f779143f921d745ac3bb0e379c05d9a3cc6bf0bea8aa91e4d5e752c7eb46b2e023edbc07d24a7c460a34a9a</span></span><br><span class="line">d=<span class="number">0x2dde7fbaed477f6d62838d55b0d0964868cf6efb2c282a5f13e6008ce7317a24cb57aec49ef0d738919f47cdcd9677cd52ac2293ec5938aa198f962678b5cd0da344453f521a69b2ac03647cdd8339f4e38cec452d54e60698833d67f9315c02ddaa4c79ebaa902c605d7bda32ce970541b2d9a17d62b52df813b2fb0c5ab1a5</span></span><br><span class="line">m=<span class="built_in">pow</span>(c,d,n)</span><br><span class="line">m = <span class="built_in">hex</span>(m)[<span class="number">2</span>:]</span><br><span class="line">flag = binascii.unhexlify(m)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<p>得到flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;cc7490e-78ab-11e9-b422-8ba97e5da1fd&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="39-密码学的心声"><a href="#39-密码学的心声" class="headerlink" title="39 密码学的心声"></a>39 密码学的心声</h1><p>题目内容是一张曲谱：</p>
+<p><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/93ffdda9-7931-4753-aee3-0c05df7bc9b5.bmp" alt=""></p>
+<p>编写脚本转字符串：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">str</span>=<span class="string">&#x27;111 114 157 166 145 123 145 143 165 162 151 164 171 126 145 162 171 115 165 143 150&#x27;</span></span><br><span class="line">str1=<span class="built_in">str</span>.split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">result=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str1:</span><br><span class="line">    result+=<span class="built_in">chr</span>(<span class="built_in">int</span>(i,<span class="number">8</span>))</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<p>得到flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ILoveSecurityVeryMuch</span><br></pre></td></tr></table></figure>
+<h1 id="40-BJDCTF2020-这是base"><a href="#40-BJDCTF2020-这是base" class="headerlink" title="40 [BJDCTF2020]这是base??"></a>40 [BJDCTF2020]这是base??</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dict:&#123;0: &#x27;J&#x27;, 1: &#x27;K&#x27;, 2: &#x27;L&#x27;, 3: &#x27;M&#x27;, 4: &#x27;N&#x27;, 5: &#x27;O&#x27;, 6: &#x27;x&#x27;, 7: &#x27;y&#x27;, 8: &#x27;U&#x27;, 9: &#x27;V&#x27;, 10: &#x27;z&#x27;, 11: &#x27;A&#x27;, 12: &#x27;B&#x27;, 13: &#x27;C&#x27;, 14: &#x27;D&#x27;, 15: &#x27;E&#x27;, 16: &#x27;F&#x27;, 17: &#x27;G&#x27;, 18: &#x27;H&#x27;, 19: &#x27;7&#x27;, 20: &#x27;8&#x27;, 21: &#x27;9&#x27;, 22: &#x27;P&#x27;, 23: &#x27;Q&#x27;, 24: &#x27;I&#x27;, 25: &#x27;a&#x27;, 26: &#x27;b&#x27;, 27: &#x27;c&#x27;, 28: &#x27;d&#x27;, 29: &#x27;e&#x27;, 30: &#x27;f&#x27;, 31: &#x27;g&#x27;, 32: &#x27;h&#x27;, 33: &#x27;i&#x27;, 34: &#x27;j&#x27;, 35: &#x27;k&#x27;, 36: &#x27;l&#x27;, 37: &#x27;m&#x27;, 38: &#x27;W&#x27;, 39: &#x27;X&#x27;, 40: &#x27;Y&#x27;, 41: &#x27;Z&#x27;, 42: &#x27;0&#x27;, 43: &#x27;1&#x27;, 44: &#x27;2&#x27;, 45: &#x27;3&#x27;, 46: &#x27;4&#x27;, 47: &#x27;5&#x27;, 48: &#x27;6&#x27;, 49: &#x27;R&#x27;, 50: &#x27;S&#x27;, 51: &#x27;T&#x27;, 52: &#x27;n&#x27;, 53: &#x27;o&#x27;, 54: &#x27;p&#x27;, 55: &#x27;q&#x27;, 56: &#x27;r&#x27;, 57: &#x27;s&#x27;, 58: &#x27;t&#x27;, 59: &#x27;u&#x27;, 60: &#x27;v&#x27;, 61: &#x27;w&#x27;, 62: &#x27;+&#x27;, 63: &#x27;/&#x27;, 64: &#x27;=&#x27;&#125;</span><br><span class="line"></span><br><span class="line">chipertext:</span><br><span class="line">FlZNfnF6Qol6e9w17WwQQoGYBQCgIkGTa9w3IQKw</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>看题目内容应该是把base64的字典换了，直接上脚本：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="comment">#新字典：</span></span><br><span class="line"><span class="built_in">dict</span>=&#123;<span class="number">0</span>: <span class="string">&#x27;J&#x27;</span>, <span class="number">1</span>: <span class="string">&#x27;K&#x27;</span>, <span class="number">2</span>: <span class="string">&#x27;L&#x27;</span>, <span class="number">3</span>: <span class="string">&#x27;M&#x27;</span>, <span class="number">4</span>: <span class="string">&#x27;N&#x27;</span>, <span class="number">5</span>: <span class="string">&#x27;O&#x27;</span>, <span class="number">6</span>: <span class="string">&#x27;x&#x27;</span>, <span class="number">7</span>: <span class="string">&#x27;y&#x27;</span>, <span class="number">8</span>: <span class="string">&#x27;U&#x27;</span>, <span class="number">9</span>: <span class="string">&#x27;V&#x27;</span>, <span class="number">10</span>: <span class="string">&#x27;z&#x27;</span>, <span class="number">11</span>: <span class="string">&#x27;A&#x27;</span>, <span class="number">12</span>: <span class="string">&#x27;B&#x27;</span>, <span class="number">13</span>: <span class="string">&#x27;C&#x27;</span>, <span class="number">14</span>: <span class="string">&#x27;D&#x27;</span>, <span class="number">15</span>: <span class="string">&#x27;E&#x27;</span>, <span class="number">16</span>: <span class="string">&#x27;F&#x27;</span>, <span class="number">17</span>: <span class="string">&#x27;G&#x27;</span>, <span class="number">18</span>: <span class="string">&#x27;H&#x27;</span>, <span class="number">19</span>: <span class="string">&#x27;7&#x27;</span>, <span class="number">20</span>: <span class="string">&#x27;8&#x27;</span>, <span class="number">21</span>: <span class="string">&#x27;9&#x27;</span>, <span class="number">22</span>: <span class="string">&#x27;P&#x27;</span>, <span class="number">23</span>: <span class="string">&#x27;Q&#x27;</span>, <span class="number">24</span>: <span class="string">&#x27;I&#x27;</span>, <span class="number">25</span>: <span class="string">&#x27;a&#x27;</span>, <span class="number">26</span>: <span class="string">&#x27;b&#x27;</span>, <span class="number">27</span>: <span class="string">&#x27;c&#x27;</span>, <span class="number">28</span>: <span class="string">&#x27;d&#x27;</span>, <span class="number">29</span>: <span class="string">&#x27;e&#x27;</span>, <span class="number">30</span>: <span class="string">&#x27;f&#x27;</span>, <span class="number">31</span>: <span class="string">&#x27;g&#x27;</span>, <span class="number">32</span>: <span class="string">&#x27;h&#x27;</span>, <span class="number">33</span>: <span class="string">&#x27;i&#x27;</span>, <span class="number">34</span>: <span class="string">&#x27;j&#x27;</span>, <span class="number">35</span>: <span class="string">&#x27;k&#x27;</span>, <span class="number">36</span>: <span class="string">&#x27;l&#x27;</span>, <span class="number">37</span>: <span class="string">&#x27;m&#x27;</span>, <span class="number">38</span>: <span class="string">&#x27;W&#x27;</span>, <span class="number">39</span>: <span class="string">&#x27;X&#x27;</span>, <span class="number">40</span>: <span class="string">&#x27;Y&#x27;</span>, <span class="number">41</span>: <span class="string">&#x27;Z&#x27;</span>, <span class="number">42</span>: <span class="string">&#x27;0&#x27;</span>, <span class="number">43</span>: <span class="string">&#x27;1&#x27;</span>, <span class="number">44</span>: <span class="string">&#x27;2&#x27;</span>, <span class="number">45</span>: <span class="string">&#x27;3&#x27;</span>, <span class="number">46</span>: <span class="string">&#x27;4&#x27;</span>, <span class="number">47</span>: <span class="string">&#x27;5&#x27;</span>, <span class="number">48</span>: <span class="string">&#x27;6&#x27;</span>, <span class="number">49</span>: <span class="string">&#x27;R&#x27;</span>, <span class="number">50</span>: <span class="string">&#x27;S&#x27;</span>, <span class="number">51</span>: <span class="string">&#x27;T&#x27;</span>, <span class="number">52</span>: <span class="string">&#x27;n&#x27;</span>, <span class="number">53</span>: <span class="string">&#x27;o&#x27;</span>, <span class="number">54</span>: <span class="string">&#x27;p&#x27;</span>, <span class="number">55</span>: <span class="string">&#x27;q&#x27;</span>, <span class="number">56</span>: <span class="string">&#x27;r&#x27;</span>, <span class="number">57</span>: <span class="string">&#x27;s&#x27;</span>, <span class="number">58</span>: <span class="string">&#x27;t&#x27;</span>, <span class="number">59</span>: <span class="string">&#x27;u&#x27;</span>, <span class="number">60</span>: <span class="string">&#x27;v&#x27;</span>, <span class="number">61</span>: <span class="string">&#x27;w&#x27;</span>, <span class="number">62</span>: <span class="string">&#x27;+&#x27;</span>, <span class="number">63</span>: <span class="string">&#x27;/&#x27;</span>, <span class="number">64</span>: <span class="string">&#x27;=&#x27;</span>&#125;</span><br><span class="line"><span class="comment">#标准base64字典：</span></span><br><span class="line">base64_list = [<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;E&#x27;</span>, <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;G&#x27;</span>, <span class="string">&#x27;H&#x27;</span>, <span class="string">&#x27;I&#x27;</span>, <span class="string">&#x27;J&#x27;</span>, <span class="string">&#x27;K&#x27;</span>, <span class="string">&#x27;L&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;N&#x27;</span>, <span class="string">&#x27;O&#x27;</span>, <span class="string">&#x27;P&#x27;</span>,<span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;R&#x27;</span>, <span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;T&#x27;</span>, <span class="string">&#x27;U&#x27;</span>, <span class="string">&#x27;V&#x27;</span>, <span class="string">&#x27;W&#x27;</span>, <span class="string">&#x27;X&#x27;</span>, <span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;Z&#x27;</span>, <span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;g&#x27;</span>, <span class="string">&#x27;h&#x27;</span>, <span class="string">&#x27;i&#x27;</span>, <span class="string">&#x27;j&#x27;</span>, <span class="string">&#x27;k&#x27;</span>, <span class="string">&#x27;l&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;n&#x27;</span>, <span class="string">&#x27;o&#x27;</span>, <span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;q&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;s&#x27;</span>, <span class="string">&#x27;t&#x27;</span>, <span class="string">&#x27;u&#x27;</span>, <span class="string">&#x27;v&#x27;</span>,<span class="string">&#x27;w&#x27;</span>, <span class="string">&#x27;x&#x27;</span>, <span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;0&#x27;</span>, <span class="string">&#x27;1&#x27;</span>, <span class="string">&#x27;2&#x27;</span>, <span class="string">&#x27;3&#x27;</span>, <span class="string">&#x27;4&#x27;</span>, <span class="string">&#x27;5&#x27;</span>, <span class="string">&#x27;6&#x27;</span>, <span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;8&#x27;</span>, <span class="string">&#x27;9&#x27;</span>, <span class="string">&#x27;+&#x27;</span>, <span class="string">&#x27;/&#x27;</span>]</span><br><span class="line"><span class="comment">#密文：</span></span><br><span class="line">chipertext=<span class="string">&#x27;FlZNfnF6Qol6e9w17WwQQoGYBQCgIkGTa9w3IQKw&#x27;</span></span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(chipertext)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">dict</span>[j]==chipertext[i]:</span><br><span class="line">            flag+=base64_list[j]</span><br><span class="line"><span class="built_in">print</span>(base64.b64decode(flag))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>得到flag:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BJD&#123;D0_Y0u_kNoW_Th1s_b4se_map&#125;</span><br></pre></td></tr></table></figure>
+<h1 id=""><a href="#" class="headerlink" title=" "></a> </h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Jiu jue</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/08/16/buuctf-4/">http://example.com/2022/08/16/buuctf-4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Jiu jue's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MORSE/">MORSE</a><a class="post-meta__tags" href="/tags/RSA/">RSA</a><a class="post-meta__tags" href="/tags/base/">base</a><a class="post-meta__tags" href="/tags/playfair/">playfair</a></div><div class="post_share"><div class="social-share" data-image="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/93ffdda9-7931-4753-aee3-0c05df7bc9b5.bmp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/IMG_9381.jpg" target="_blank"><img class="post-qr-code-img" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/IMG_9381.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/IMG_9382.jpg" target="_blank"><img class="post-qr-code-img" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/IMG_9382.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/16/buuctf-5/"><img class="prev-cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/crypto.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BUUCTF-Crypto-Wp 41~50</div></div></a></div><div class="next-post pull-right"><a href="/2022/07/29/buuctf-3/"><img class="next-cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220701170327.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">BUUCTF-Crypto-Wp 21~30</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/07/29/buuctf-3/" title="BUUCTF-Crypto-Wp 21~30"><img class="cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220701170327.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-29</div><div class="title">BUUCTF-Crypto-Wp 21~30</div></div></a></div><div><a href="/2022/07/29/buuctf-1/" title="BUUCTF-Crypto-Wp 1~10"><img class="cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/morse.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-07-29</div><div class="title">BUUCTF-Crypto-Wp 1~10</div></div></a></div><div><a href="/2022/08/16/buuctf-6/" title="BUUCTF-Crypto-Wp 51~60"><img class="cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220816052742.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-16</div><div class="title">BUUCTF-Crypto-Wp 51~60</div></div></a></div><div><a href="/2022/08/16/buuctf-7/" title="BUUCTF-Crypto-Wp 61~70"><img class="cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220714161612.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-16</div><div class="title">BUUCTF-Crypto-Wp 61~70</div></div></a></div><div><a href="/2022/08/16/buuctf-5/" title="BUUCTF-Crypto-Wp 41~50"><img class="cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/crypto.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-16</div><div class="title">BUUCTF-Crypto-Wp 41~50</div></div></a></div><div><a href="/2022/08/16/buuctf-8/" title="BUUCTF-Crypto-Wp 71~80"><img class="cover" src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220719105039.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-16</div><div class="title">BUUCTF-Crypto-Wp 71~80</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/love.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jiu jue</div><div class="author-info__description">记录学习Crypto的过程</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/jiujueaa"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/jiujueaa" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/5496907948" target="_blank" title="Weibo"><i class="fab fa-weibo"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#31-RSA"><span class="toc-number">1.</span> <span class="toc-text">31 RSA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#32-RSAROLL"><span class="toc-number">2.</span> <span class="toc-text">32 RSAROLL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#33-dangerous-rsa"><span class="toc-number">3.</span> <span class="toc-text">33  dangerous rsa</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#34-robomunication"><span class="toc-number">4.</span> <span class="toc-text">34 robomunication</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#35-Cipher"><span class="toc-number">5.</span> <span class="toc-text">35 Cipher</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#playfair%E5%AF%86%E7%A0%81%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">playfair密码：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#36-HDCTF2019-basic-rsa"><span class="toc-number">6.</span> <span class="toc-text">36 [HDCTF2019]basic rsa</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#37-GXYCTF2019-CheckIn"><span class="toc-number">7.</span> <span class="toc-text">37 [GXYCTF2019]CheckIn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#38-GUET-CTF2019-BabyRSA"><span class="toc-number">8.</span> <span class="toc-text">38 [GUET-CTF2019]BabyRSA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#39-%E5%AF%86%E7%A0%81%E5%AD%A6%E7%9A%84%E5%BF%83%E5%A3%B0"><span class="toc-number">9.</span> <span class="toc-text">39 密码学的心声</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#40-BJDCTF2020-%E8%BF%99%E6%98%AFbase"><span class="toc-number">10.</span> <span class="toc-text">40 [BJDCTF2020]这是base??</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">11.</span> <span class="toc-text"> </span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/08/16/buuctf-9/" title="BUUCTF-Crypto-Wp 81~90"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/Part4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUUCTF-Crypto-Wp 81~90"/></a><div class="content"><a class="title" href="/2022/08/16/buuctf-9/" title="BUUCTF-Crypto-Wp 81~90">BUUCTF-Crypto-Wp 81~90</a><time datetime="2022-08-15T21:25:30.000Z" title="发表于 2022-08-16 05:25:30">2022-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/16/buuctf-8/" title="BUUCTF-Crypto-Wp 71~80"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220719105039.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUUCTF-Crypto-Wp 71~80"/></a><div class="content"><a class="title" href="/2022/08/16/buuctf-8/" title="BUUCTF-Crypto-Wp 71~80">BUUCTF-Crypto-Wp 71~80</a><time datetime="2022-08-15T21:23:30.000Z" title="发表于 2022-08-16 05:23:30">2022-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/16/buuctf-7/" title="BUUCTF-Crypto-Wp 61~70"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220714161612.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUUCTF-Crypto-Wp 61~70"/></a><div class="content"><a class="title" href="/2022/08/16/buuctf-7/" title="BUUCTF-Crypto-Wp 61~70">BUUCTF-Crypto-Wp 61~70</a><time datetime="2022-08-15T21:20:10.000Z" title="发表于 2022-08-16 05:20:10">2022-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/16/buuctf-6/" title="BUUCTF-Crypto-Wp 51~60"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/20220816052742.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUUCTF-Crypto-Wp 51~60"/></a><div class="content"><a class="title" href="/2022/08/16/buuctf-6/" title="BUUCTF-Crypto-Wp 51~60">BUUCTF-Crypto-Wp 51~60</a><time datetime="2022-08-15T21:16:31.000Z" title="发表于 2022-08-16 05:16:31">2022-08-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/16/buuctf-5/" title="BUUCTF-Crypto-Wp 41~50"><img src="https://tuchuang935.oss-cn-hangzhou.aliyuncs.com/crypto.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="BUUCTF-Crypto-Wp 41~50"/></a><div class="content"><a class="title" href="/2022/08/16/buuctf-5/" title="BUUCTF-Crypto-Wp 41~50">BUUCTF-Crypto-Wp 41~50</a><time datetime="2022-08-15T21:12:21.000Z" title="发表于 2022-08-16 05:12:21">2022-08-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 By Jiu jue</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><div class="aplayer no-destroy" data-id="001LY73007BS3u" data-server="tencent" data-type="song" data-fixed="true" data-autoplay="false"> </div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
